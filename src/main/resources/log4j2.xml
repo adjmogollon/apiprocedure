@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+
+    <Properties>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %p %m%n</Property>
+        <Property name="LOG_PATTERNFULL">%style{%d{ISO8601}}{black} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow}: %msg%n%throwable</Property>
+        <Property name="APP_LOG_ROOT">c:/temp</Property>
+    </Properties>
+
+    <Appenders>
+
+        <Console name="console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERNFULL}"/>
+        </Console>
+
+        <RollingFile name="applicationLog" fileName="${sys:APP_LOG_ROOT}/application.log" filePattern="${sys:APP_LOG_ROOT}/application-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${LOG_PATTERNFULL}"/>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="activityLog" fileName="${sys:APP_LOG_ROOT}/activity.log" filePattern="${sys:APP_LOG_ROOT}/activity-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="hibernateLog" fileName="${sys:APP_LOG_ROOT}/database.log" filePattern="${sys:APP_LOG_ROOT}/database-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+        
+        <RollingFile name="errorLog" fileName="${sys:APP_LOG_ROOT}/error.log" filePattern="${sys:APP_LOG_ROOT}/error-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <!-- LOG everything at INFO level -->
+        <Root level="info">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="applicationLog" />
+        </Root>
+
+        <Logger name="com.adjmogollon" additivity="false" level="info">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="applicationLog" />
+            <AppenderRef ref="activityLog" />
+        </Logger>
+
+       
+        <Logger name="org.hibernate" additivity="false" level="info">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="applicationLog" />
+            <AppenderRef ref="hibernateLog" />
+        </Logger>
+
+    </Loggers>
+
+</Configuration>
