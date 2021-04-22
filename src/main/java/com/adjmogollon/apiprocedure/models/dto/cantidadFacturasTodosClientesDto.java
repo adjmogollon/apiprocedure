@@ -6,7 +6,7 @@ import java.math.BigInteger;
 
 
 
-public class cantidadFacturasTodosClientesDTO implements Serializable {
+public class cantidadFacturasTodosClientesDto implements Serializable {
 	/**
 	 * 
 	 */
@@ -16,11 +16,11 @@ public class cantidadFacturasTodosClientesDTO implements Serializable {
 	private String emailCliente;
 	private BigInteger cantidadFacturas;
 
-	public cantidadFacturasTodosClientesDTO() {
+	public cantidadFacturasTodosClientesDto() {
 
 	}
 
-	public cantidadFacturasTodosClientesDTO(String nombreCliente, String apellidoCliente, String emailCliente,
+	public cantidadFacturasTodosClientesDto(String nombreCliente, String apellidoCliente, String emailCliente,
 			BigInteger cantidadFacturas) {
 		super();
 		this.nombreCliente = nombreCliente;

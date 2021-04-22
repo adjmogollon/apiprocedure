@@ -1,6 +1,6 @@
 package com.adjmogollon.apiprocedure.models.dto;
 
-public interface IInfoClientePorCorreoDTO {
+public interface IInfoClientePorCorreoDto {
 
 	public Long getNumberClient();
 	

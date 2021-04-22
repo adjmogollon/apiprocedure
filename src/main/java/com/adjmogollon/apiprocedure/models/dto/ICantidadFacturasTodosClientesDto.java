@@ -1,6 +1,6 @@
 package com.adjmogollon.apiprocedure.models.dto;
 
-public interface ICantidadFacturasTodosClientesDTO {
+public interface ICantidadFacturasTodosClientesDto {
 
 	String getNombreCliente();
 

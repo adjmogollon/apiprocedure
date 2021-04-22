@@ -2,7 +2,7 @@ package com.adjmogollon.apiprocedure.models.dto;
 
 import java.util.Date;
 
-public interface IInfoClientesTodosDTO {
+public interface IInfoClientesTodosDto {
 
 	public Long getId();
 

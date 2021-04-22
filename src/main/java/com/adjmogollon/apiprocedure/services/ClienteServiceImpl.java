@@ -6,11 +6,11 @@ import java.util.stream.Collectors;
 
 import javax.persistence.Tuple;
 
-import com.adjmogollon.apiprocedure.models.dto.ICantidadFacturasTodosClientesDTO;
-import com.adjmogollon.apiprocedure.models.dto.IFacturasClientePorEmailDTO;
-import com.adjmogollon.apiprocedure.models.dto.IInfoClientePorCorreoDTO;
-import com.adjmogollon.apiprocedure.models.dto.IInfoClientesTodosDTO;
-import com.adjmogollon.apiprocedure.models.dto.cantidadFacturasTodosClientesDTO;
+import com.adjmogollon.apiprocedure.models.dto.ICantidadFacturasTodosClientesDto;
+import com.adjmogollon.apiprocedure.models.dto.IFacturasClientePorEmailDto;
+import com.adjmogollon.apiprocedure.models.dto.IInfoClientePorCorreoDto;
+import com.adjmogollon.apiprocedure.models.dto.IInfoClientesTodosDto;
+import com.adjmogollon.apiprocedure.models.dto.cantidadFacturasTodosClientesDto;
 import com.adjmogollon.apiprocedure.models.entity.Cliente;
 import com.adjmogollon.apiprocedure.models.repository.IClienteProcedureRepository;
 import com.adjmogollon.apiprocedure.models.repository.IClienteRepository;
@@ -48,10 +48,10 @@ public class ClienteServiceImpl implements IClienteService {
     }
     
     @Override
-	public List<cantidadFacturasTodosClientesDTO> getCantidadFacturasTodosClientesTupleDTO() {
+	public List<cantidadFacturasTodosClientesDto> getCantidadFacturasTodosClientesTupleDTO() {
 		List<Tuple> clientesFacturaTuples =  clienteRepository.getCantidadFacturasTodosClientesTupleDTO(); 
-	    List<cantidadFacturasTodosClientesDTO> clientesFacturaDTO = clientesFacturaTuples.stream()
-	            .map(t -> new cantidadFacturasTodosClientesDTO(
+	    List<cantidadFacturasTodosClientesDto> clientesFacturaDTO = clientesFacturaTuples.stream()
+	            .map(t -> new cantidadFacturasTodosClientesDto(
 	                    t.get(0, String.class), 
 	                    t.get(1, String.class),
 	                    t.get(2, String.class), 
@@ -62,12 +62,12 @@ public class ClienteServiceImpl implements IClienteService {
 	}
     
 	@Override
-	public List<ICantidadFacturasTodosClientesDTO> getCantidadFacturasTodosClientesInterfaceDTO() {		
+	public List<ICantidadFacturasTodosClientesDto> getCantidadFacturasTodosClientesInterfaceDTO() {		
 		return clienteRepository.getCantidadFacturasTodosClientesInterfaceDTO();
 	}
 
 	@Override
-	public List<IFacturasClientePorEmailDTO> getFacturasClientePorEmail(String email) {
+	public List<IFacturasClientePorEmailDto> getFacturasClientePorEmail(String email) {
 		return clienteRepository.getFacturasClientePorEmail(email);
 	}
 	
@@ -82,12 +82,12 @@ public class ClienteServiceImpl implements IClienteService {
 	}
 
 	@Override
-	public IInfoClientePorCorreoDTO getInfoClientePorCorreo(String correoCliente) {
+	public IInfoClientePorCorreoDto getInfoClientePorCorreo(String correoCliente) {
 		return clienteRepository.getInfoClientePorCorreo(correoCliente);
 	}
 
 	@Override
-	public List<IInfoClientesTodosDTO> getInfoClientesTodos() {
+	public List<IInfoClientesTodosDto> getInfoClientesTodos() {
 		return clienteRepository.getInfoClientesTodos();
 	}
 

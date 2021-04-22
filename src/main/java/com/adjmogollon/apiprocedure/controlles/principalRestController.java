@@ -7,17 +7,18 @@ import java.util.List;
 import java.util.Map;
 
 
-import com.adjmogollon.apiprocedure.models.dto.IFacturasClientePorEmailDTO;
-import com.adjmogollon.apiprocedure.models.dto.IInfoClientePorCorreoDTO;
-import com.adjmogollon.apiprocedure.models.dto.IInfoClientesTodosDTO;
-import com.adjmogollon.apiprocedure.models.dto.ICantidadFacturasTodosClientesDTO;
-import com.adjmogollon.apiprocedure.models.dto.cantidadFacturasTodosClientesDTO;
+import com.adjmogollon.apiprocedure.models.dto.IFacturasClientePorEmailDto;
+import com.adjmogollon.apiprocedure.models.dto.IInfoClientePorCorreoDto;
+import com.adjmogollon.apiprocedure.models.dto.IInfoClientesTodosDto;
+import com.adjmogollon.apiprocedure.models.dto.ICantidadFacturasTodosClientesDto;
+import com.adjmogollon.apiprocedure.models.dto.cantidadFacturasTodosClientesDto;
 import com.adjmogollon.apiprocedure.models.entity.Cliente;
 import com.adjmogollon.apiprocedure.models.entity.Region;
 import com.adjmogollon.apiprocedure.models.repository.IClienteRepository;
 import com.adjmogollon.apiprocedure.models.repository.IRegionRepository;
 import com.adjmogollon.apiprocedure.services.IClienteService;
 
+import lombok.extern.log4j.Log4j2;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/apiRest")
+@Log4j2
 public class principalRestController {
 
 	@Autowired
@@ -42,10 +44,11 @@ public class principalRestController {
 	@Autowired
 	private IRegionRepository regionRepository;
 	
-	private final Logger log = LoggerFactory.getLogger(principalRestController.class);
+	//private final Logger log = LoggerFactory.getLogger(principalRestController.class);
 
 	@GetMapping("/clientes")
 	public List<Cliente> listarClientes() {
+		log.info("Todos estos log se hacen con anotacion de @Log4j2 de lombook");
 		log.trace("A TRACE Message");
 		log.debug("A DEBUG Message");
 		log.info("An INFO Message");
@@ -84,17 +87,17 @@ public class principalRestController {
 	}
 
 	@GetMapping("/cantidadFacturasTodosClientes02TupleDTOMapperService")
-	public List<cantidadFacturasTodosClientesDTO> cantidadFacturasTodosClientes02DTOMapperService() {
+	public List<cantidadFacturasTodosClientesDto> cantidadFacturasTodosClientes02DTOMapperService() {
 		return clienteService.getCantidadFacturasTodosClientesTupleDTO();
 	}
 
 	@GetMapping("/cantidadFacturasTodosClientes03DTOMapperRepository")
-	public List<ICantidadFacturasTodosClientesDTO> cantidadFacturasTodosClientes03DTOMapperRepository() {
+	public List<ICantidadFacturasTodosClientesDto> cantidadFacturasTodosClientes03DTOMapperRepository() {
 		return clienteService.getCantidadFacturasTodosClientesInterfaceDTO();
 	}
 
 	@GetMapping("/facturasClientePorEmail/{email}")
-	public List<IFacturasClientePorEmailDTO> facturasClientePorEmail(@PathVariable String email) {
+	public List<IFacturasClientePorEmailDto> facturasClientePorEmail(@PathVariable String email) {
 		return clienteService.getFacturasClientePorEmail(email);
 
 	}
@@ -118,7 +121,7 @@ public class principalRestController {
 		
 		// En este metodo se llama al procedimiento y se crea una Entidad cliente la cual es retornada 
 		
-		IInfoClientePorCorreoDTO miClienteDTO = clienteService.getInfoClientePorCorreo(email);
+		IInfoClientePorCorreoDto miClienteDTO = clienteService.getInfoClientePorCorreo(email);
 		
 		Region regionCliente = regionRepository.findById(miClienteDTO.getNumberRegion()).orElse(null);		
 		Cliente miCliente = new Cliente(miClienteDTO.getNumberClient(), miClienteDTO.getFirtsNameClient(), miClienteDTO.getLastNameClient(), miClienteDTO.getEmailCliente(), new Date(), null, regionCliente, null);
@@ -130,7 +133,7 @@ public class principalRestController {
 	
 	
 	@GetMapping("/infoClientesTodos")
-	public List<IInfoClientesTodosDTO> infoClientesTodos() {
+	public List<IInfoClientesTodosDto> infoClientesTodos() {
 		return clienteService.getInfoClientesTodos();
 	}
 	

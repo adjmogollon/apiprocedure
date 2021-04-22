@@ -4,10 +4,10 @@ import java.util.List;
 
 import javax.persistence.Tuple;
 
-import com.adjmogollon.apiprocedure.models.dto.ICantidadFacturasTodosClientesDTO;
-import com.adjmogollon.apiprocedure.models.dto.IFacturasClientePorEmailDTO;
-import com.adjmogollon.apiprocedure.models.dto.IInfoClientePorCorreoDTO;
-import com.adjmogollon.apiprocedure.models.dto.IInfoClientesTodosDTO;
+import com.adjmogollon.apiprocedure.models.dto.ICantidadFacturasTodosClientesDto;
+import com.adjmogollon.apiprocedure.models.dto.IFacturasClientePorEmailDto;
+import com.adjmogollon.apiprocedure.models.dto.IInfoClientePorCorreoDto;
+import com.adjmogollon.apiprocedure.models.dto.IInfoClientesTodosDto;
 import com.adjmogollon.apiprocedure.models.entity.Cliente;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,10 +24,10 @@ public interface IClienteRepository extends JpaRepository<Cliente, Long> {
 	public List<Tuple> getCantidadFacturasTodosClientesTupleDTO();
 
 	@Query(value = "CALL cantidadFacturasTodosClientes()", nativeQuery = true)
-	public List<ICantidadFacturasTodosClientesDTO> getCantidadFacturasTodosClientesInterfaceDTO();
+	public List<ICantidadFacturasTodosClientesDto> getCantidadFacturasTodosClientesInterfaceDTO();
 
 	@Query(value = "CALL facturasClientePorEmail(:correoCliente)", nativeQuery = true)
-	public List<IFacturasClientePorEmailDTO> getFacturasClientePorEmail(@Param("correoCliente") String correoCliente);
+	public List<IFacturasClientePorEmailDto> getFacturasClientePorEmail(@Param("correoCliente") String correoCliente);
 
 	@Procedure(procedureName = "contarClientes", outputParameterName = "cantidad")
 	public Integer getContarClientesRepository();
@@ -36,9 +36,9 @@ public interface IClienteRepository extends JpaRepository<Cliente, Long> {
 	public Integer getContarClientePorRegion(Integer region);
 	
 	@Query(value = "CALL infoClientePorCorreo(:correoCliente)", nativeQuery = true)
-	public IInfoClientePorCorreoDTO getInfoClientePorCorreo(@Param("correoCliente") String correoCliente);
+	public IInfoClientePorCorreoDto getInfoClientePorCorreo(@Param("correoCliente") String correoCliente);
 
 	@Query(value = "CALL infoClientesTodos()", nativeQuery = true)
-	public List<IInfoClientesTodosDTO> getInfoClientesTodos();
+	public List<IInfoClientesTodosDto> getInfoClientesTodos();
 	
 }

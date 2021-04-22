@@ -1,6 +1,6 @@
 package com.adjmogollon.apiprocedure.models.dto;
 
-public interface IFacturasClientePorEmailDTO {
+public interface IFacturasClientePorEmailDto {
 
 	public Long getIdFactura();
 
