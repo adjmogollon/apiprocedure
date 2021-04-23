@@ -73,3 +73,13 @@ select * from clientes;
 END$$
 DELIMITER ;
 
+DELIMITER $$
+CREATE PROCEDURE `findProductosByNombreContains`(IN nombre_in VARCHAR(255))
+BEGIN
+select * from productos where nombre like CONCAT('%', nombre_in , '%');
+
+END$$
+
+DELIMITER ;
+
+

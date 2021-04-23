@@ -6,17 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import com.adjmogollon.apiprocedure.models.dto.IFacturasClientePorEmailDto;
 import com.adjmogollon.apiprocedure.models.dto.IInfoClientePorCorreoDto;
 import com.adjmogollon.apiprocedure.models.dto.IInfoClientesTodosDto;
 import com.adjmogollon.apiprocedure.models.dto.ICantidadFacturasTodosClientesDto;
 import com.adjmogollon.apiprocedure.models.dto.cantidadFacturasTodosClientesDto;
 import com.adjmogollon.apiprocedure.models.entity.Cliente;
+import com.adjmogollon.apiprocedure.models.entity.Producto;
 import com.adjmogollon.apiprocedure.models.entity.Region;
 import com.adjmogollon.apiprocedure.models.repository.IClienteRepository;
 import com.adjmogollon.apiprocedure.models.repository.IRegionRepository;
 import com.adjmogollon.apiprocedure.services.IClienteService;
+import com.adjmogollon.apiprocedure.services.IProductoService;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -40,11 +41,15 @@ public class principalRestController {
 
 	@Autowired
 	private IClienteRepository clienteRepository;
-	
+
 	@Autowired
 	private IRegionRepository regionRepository;
-	
-	//private final Logger log = LoggerFactory.getLogger(principalRestController.class);
+
+	@Autowired
+	private IProductoService productoService;
+
+	// private final Logger log =
+	// LoggerFactory.getLogger(principalRestController.class);
 
 	@GetMapping("/clientes")
 	public List<Cliente> listarClientes() {
@@ -108,7 +113,7 @@ public class principalRestController {
 		response.put("CantidadTotalClientes", clienteService.getContarClientesRepository());
 		return response;
 	}
-	
+
 	@GetMapping("/contarClientePorRegion")
 	public Map<String, Integer> contarClientePorRegion() {
 		Map<String, Integer> response = new HashMap<>();
@@ -118,23 +123,31 @@ public class principalRestController {
 
 	@GetMapping("/infoClientePorCorreo/{email}")
 	public Cliente infoClientePorCorreo(@PathVariable String email) {
-		
-		// En este metodo se llama al procedimiento y se crea una Entidad cliente la cual es retornada 
-		
+
+		// En este metodo se llama al procedimiento y se crea una Entidad cliente la
+		// cual es retornada
+
 		IInfoClientePorCorreoDto miClienteDTO = clienteService.getInfoClientePorCorreo(email);
-		
-		Region regionCliente = regionRepository.findById(miClienteDTO.getNumberRegion()).orElse(null);		
-		Cliente miCliente = new Cliente(miClienteDTO.getNumberClient(), miClienteDTO.getFirtsNameClient(), miClienteDTO.getLastNameClient(), miClienteDTO.getEmailCliente(), new Date(), null, regionCliente, null);
-		
-		//Cliente miCliente = clienteRepository.findById(miClienteDTO.getNumberClient()).orElse(null);
-		
+
+		Region regionCliente = regionRepository.findById(miClienteDTO.getNumberRegion()).orElse(null);
+		Cliente miCliente = new Cliente(miClienteDTO.getNumberClient(), miClienteDTO.getFirtsNameClient(),
+				miClienteDTO.getLastNameClient(), miClienteDTO.getEmailCliente(), new Date(), null, regionCliente,
+				null);
+
+		// Cliente miCliente =
+		// clienteRepository.findById(miClienteDTO.getNumberClient()).orElse(null);
+
 		return miCliente;
 	}
-	
-	
+
 	@GetMapping("/infoClientesTodos")
 	public List<IInfoClientesTodosDto> infoClientesTodos() {
 		return clienteService.getInfoClientesTodos();
 	}
-	
+
+	@GetMapping("/listarProductosPorNombre/{nombre}")
+	public List<Producto> listarProductosPorNombre(@PathVariable String nombre) {
+		return productoService.findProductosByNombreContains(nombre);
+	}
+
 }
