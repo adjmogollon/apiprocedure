@@ -1,4 +1,4 @@
-package com.adjmogollon.apiprocedure.controlles;
+package com.adjmogollon.apiprocedure.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
